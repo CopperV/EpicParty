@@ -1,0 +1,8 @@
+name: EpicParty
+version: 1.0.0-ALPHA
+main: me.Vark123.EpicParty.Main
+author: Vark123
+depend: [EpicRPG]
+api-version: 1.18
+
+commands:
