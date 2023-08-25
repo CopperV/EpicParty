@@ -10,9 +10,12 @@ public class Main extends JavaPlugin {
 	@Getter
 	private static Main inst;
 	
+	private EpicPartyAPI api;
+	
 	@Override
 	public void onEnable() {
 		inst = this;
+		api = EpicPartyAPI.get();
 		
 		CommandManager.setExecutors();
 		ListenerManager.registerListeners();

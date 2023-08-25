@@ -6,3 +6,5 @@ depend: [EpicRPG]
 api-version: 1.18
 
 commands:
+  epicparty:
+    aliases: [party, ep, pa]
