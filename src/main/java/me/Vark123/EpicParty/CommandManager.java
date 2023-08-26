@@ -11,6 +11,7 @@ import me.Vark123.EpicParty.PlayerPartySystem.Commands.Impl.PartyJoinCommand;
 import me.Vark123.EpicParty.PlayerPartySystem.Commands.Impl.PartyKickCommand;
 import me.Vark123.EpicParty.PlayerPartySystem.Commands.Impl.PartyLeaderCommand;
 import me.Vark123.EpicParty.PlayerPartySystem.Commands.Impl.PartyLeaveCommand;
+import me.Vark123.EpicParty.PlayerPartySystem.Commands.Impl.PartyMenuCommand;
 
 public class CommandManager {
 
@@ -26,6 +27,7 @@ public class CommandManager {
 		PartyCommandManager.get().registerSubcommand(new PartyLeaderCommand());
 		PartyCommandManager.get().registerSubcommand(new PartyLeaveCommand());
 		PartyCommandManager.get().registerSubcommand(new PartyKickCommand());
+		PartyCommandManager.get().registerSubcommand(new PartyMenuCommand());
 	}
 	
 }
