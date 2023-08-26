@@ -23,6 +23,8 @@ public final class PartyCommandManager {
 	
 	public void registerSubcommand(APartyCommand subcmd) {
 		partySubcommands.put(subcmd.getCmd().toLowerCase(), subcmd);
+		for(String alias : subcmd.getAliases())
+			partySubcommands.put(alias, subcmd);
 	}
 	
 	public Optional<APartyCommand> getPartySubcommand(String subcmd) {

@@ -13,7 +13,7 @@ import me.Vark123.EpicParty.PlayerPartySystem.Commands.APartyCommand;
 public class PartyChatCommand extends APartyCommand {
 
 	public PartyChatCommand() {
-		super("chat");
+		super("chat", new String[]{"czat"});
 	}
 
 	@Override

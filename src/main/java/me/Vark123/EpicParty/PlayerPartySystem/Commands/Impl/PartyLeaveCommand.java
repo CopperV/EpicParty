@@ -13,7 +13,7 @@ import me.Vark123.EpicParty.PlayerPartySystem.Commands.APartyCommand;
 public class PartyLeaveCommand extends APartyCommand {
 
 	public PartyLeaveCommand() {
-		super("leave");
+		super("leave", new String[]{"opusc"});
 	}
 
 	@Override

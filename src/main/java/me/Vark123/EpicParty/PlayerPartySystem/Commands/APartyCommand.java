@@ -12,6 +12,7 @@ import lombok.Getter;
 public abstract class APartyCommand {
 
 	protected String cmd;
+	protected String[] aliases;
 	
 	public abstract boolean canUse(CommandSender sender);
 	public abstract boolean useCommand(CommandSender sender, String... args);

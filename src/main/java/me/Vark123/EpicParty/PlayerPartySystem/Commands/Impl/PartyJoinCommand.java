@@ -17,7 +17,7 @@ import me.Vark123.EpicParty.Tools.Pair;
 public class PartyJoinCommand extends APartyCommand {
 
 	public PartyJoinCommand() {
-		super("join");
+		super("join", new String[]{"dolacz"});
 	}
 
 	@Override

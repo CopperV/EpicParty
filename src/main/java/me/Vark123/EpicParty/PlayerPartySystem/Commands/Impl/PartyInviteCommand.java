@@ -16,7 +16,7 @@ import me.Vark123.EpicParty.Tools.Pair;
 public class PartyInviteCommand extends APartyCommand {
 
 	public PartyInviteCommand() {
-		super("invite");
+		super("invite", new String[]{"zapros"});
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class PartyInviteCommand extends APartyCommand {
 			return false;
 		}
 		if(target.equals(p)) {
-			sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dNie mozesz zaprosic samego siebie do party!");
+			sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dNie mozesz zaprosic samego siebie do druzyny!");
 			return false;
 		}
 

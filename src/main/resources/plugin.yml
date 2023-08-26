@@ -7,4 +7,4 @@ api-version: 1.18
 
 commands:
   epicparty:
-    aliases: [party, ep, pa]
+    aliases: [party, ep, pa, druzyna, team]

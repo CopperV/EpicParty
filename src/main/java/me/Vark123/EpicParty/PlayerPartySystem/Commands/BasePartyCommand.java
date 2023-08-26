@@ -48,9 +48,14 @@ public class BasePartyCommand implements CommandExecutor {
 
 	private void showCorrectUsage(CommandSender sender) {
 		sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dPoprawne uzycie komendy §7§o/party");
-		PartyCommandManager.get().getPartySubcommands().values().stream()
-			.filter(cmd -> cmd.canUse(sender))
-			.forEach(cmd -> cmd.showCorrectUsage(sender));
+		PartyCommandManager.get().getPartySubcommands().keySet().stream()
+			.filter(key -> {
+				APartyCommand cmd = PartyCommandManager.get().getPartySubcommand(key).get();
+				return cmd.getCmd().equals(key)
+						&& cmd.canUse(sender);
+			}).forEach(key -> {
+				PartyCommandManager.get().getPartySubcommand(key).get().showCorrectUsage(sender);
+			});
 	}
 	
 }

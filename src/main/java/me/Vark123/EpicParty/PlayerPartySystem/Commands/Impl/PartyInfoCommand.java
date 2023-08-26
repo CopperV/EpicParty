@@ -13,7 +13,7 @@ import me.Vark123.EpicParty.PlayerPartySystem.Commands.APartyCommand;
 public class PartyInfoCommand extends APartyCommand {
 
 	public PartyInfoCommand() {
-		super("info");
+		super("info", new String[]{});
 	}
 
 	@Override

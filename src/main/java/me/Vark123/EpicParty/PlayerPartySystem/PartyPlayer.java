@@ -17,6 +17,10 @@ import me.Vark123.EpicParty.Config;
 import me.Vark123.EpicParty.Main;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyInviteEvent;
 import me.Vark123.EpicParty.Tools.Pair;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ClickEvent.Action;
+import net.md_5.bungee.api.chat.TextComponent;
 
 @Getter
 @EqualsAndHashCode
@@ -43,6 +47,10 @@ public class PartyPlayer {
 	
 	public void sendMessage(String msg) {
 		player.sendMessage(msg);
+	}
+	
+	public void sendJSONMessage(TextComponent msg) {
+		player.spigot().sendMessage(ChatMessageType.CHAT, msg);
 	}
 	
 	public void cancelInvitation(BukkitTask task) {
@@ -72,8 +80,13 @@ public class PartyPlayer {
 			}
 		}.runTaskLaterAsynchronously(Main.getInst(), 20*Config.get().getInvitationDuration()));
 		partyInvitations.put(task.getValue(), pair);
+		
+		TextComponent comp = new TextComponent("§7["+Config.get().getPrefix()+"§7] §dOtrzymales zaproszenie do druzyny §7§o"+sender.getName()+"§d. Dolacz uzywajac komendy ");
+		TextComponent click = new TextComponent("§7§o/party dolacz "+sender.getName());
+		click.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/epicparty join "+sender.getName()));
+		comp.addExtra(click);
+		sendJSONMessage(comp);
 		sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dZaprosiles §7§o"+player.getName()+" §ddo swojej druzyny!");
-		sendMessage("§7["+Config.get().getPrefix()+"§7] §dOtrzymales zaproszenie do druzyny §7§o"+sender.getName()+"§d. Dolacz uzywajac komendy §7§o/party dolacz "+sender.getName());
 	}
 	
 }

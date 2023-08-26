@@ -12,10 +12,10 @@ import me.Vark123.EpicParty.PlayerPartySystem.PartyPlayer;
 import me.Vark123.EpicParty.PlayerPartySystem.PlayerManager;
 import me.Vark123.EpicParty.PlayerPartySystem.Commands.APartyCommand;
 
-public class PartyLeaderCommand extends APartyCommand {
+public class PartyKickCommand extends APartyCommand {
 
-	public PartyLeaderCommand() {
-		super("leader", new String[]{"lider"});
+	public PartyKickCommand() {
+		super("kick", new String[] {"wyrzuc"});
 	}
 
 	@Override
@@ -25,21 +25,17 @@ public class PartyLeaderCommand extends APartyCommand {
 		MutableBoolean result = new MutableBoolean(true);
 		PlayerManager.get().getPartyPlayer((Player) sender)
 			.ifPresentOrElse(pp -> {
-				pp.getParty().ifPresentOrElse(party -> {
-					result.setValue(party.getLeader().equals(pp));
-				}, () -> {
-					result.setFalse();
-				});
-			}, () -> {
-				result.setFalse();
-			});
+				pp.getParty().ifPresentOrElse(
+						party -> result.setValue(party.getLeader().equals(pp)),
+						() -> result.setFalse());
+			}, () -> result.setFalse());
 		return result.booleanValue();
 	}
 
 	@Override
 	public boolean useCommand(CommandSender sender, String... args) {
 		if(args == null || args.length < 1) {
-			sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dMusisz podac gracza, ktorego chcesz mianowac liderem");
+			sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dMusisz podac gracza, ktorego chcesz wyrzucic");
 			return false;
 		}
 		
@@ -53,7 +49,7 @@ public class PartyLeaderCommand extends APartyCommand {
 			return false;
 		}
 		if(target.equals(p)) {
-			sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dNie mozesz mianowac samego siebie nowym liderem!");
+			sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dNie mozesz wyrzucic samego siebie z druzyny!");
 			return false;
 		}
 
@@ -63,24 +59,23 @@ public class PartyLeaderCommand extends APartyCommand {
 				if(!targetParty.equals(party)) {
 					sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §7§o"+args[0]+" §dnie jest w Twojej druzynie!");
 					result.setFalse();
+					return;
 				}
+				PartyManager.get().kickFromParty(party, pTarget);
 			}, () -> {
 				sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §7§o"+args[0]+" §dnie jest w Twojej druzynie!");
 				result.setFalse();
 			});
-			if(result.isTrue()) {
-				result.setValue(PartyManager.get().changePartyLeader(party, pTarget));
-			}
 		}, () -> {
 			sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dBLAD! §7§o"+args[0]+" §dnie jest zapisany! Zglos blad administratorowi!");
 			result.setFalse();
 		});
-		return result.booleanValue();
+		return result.getValue();
 	}
 
 	@Override
 	public void showCorrectUsage(CommandSender sender) {
-		sender.sendMessage("  §d/party lider <gracz> §7- Zmienia lidera Twojej druzyny");
+		sender.sendMessage("  §d/party wyrzuc <gracz> §7- Wyrzuca gracza z Twojej druzyny");
 	}
 
 }

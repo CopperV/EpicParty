@@ -103,7 +103,7 @@ public final class PartyManager {
 		oldMember.sendMessage("§7["+Config.get().getPrefix()+"§7] §dOpusciles druzyne §7"+party.getLeader().getName());
 		oldMember.setParty(null);
 		party.getMembers().remove(oldMember);
-		if(party.getMembers().size() < 3) {
+		if(party.getMembers().size() < 2) {
 			return removeParty(party);
 		}
 		
@@ -114,6 +114,28 @@ public final class PartyManager {
 					.get(rand.nextInt(party.getMembers().size()));
 			changePartyLeader(party, newLeader);
 		}
+		return true;
+	}
+	
+	public boolean kickFromParty(Party party, PartyPlayer oldMember) {
+		PartyEvent leaveEvent = new PartyLeaveEvent(party, oldMember);
+		Bukkit.getPluginManager().callEvent(leaveEvent);
+		PartyPlayer leader = party.getLeader();
+		if(leaveEvent.isCancelled()) {
+			leader.sendMessage("§7["+Config.get().getPrefix()+"§7] §dNie mozesz wyrzucic z druzyny §7"+oldMember.getName());
+			if(leaveEvent.getCancelMessage() != null && !leaveEvent.getCancelMessage().isEmpty())
+				leader.sendMessage("§dPowod: §r"+leaveEvent.getCancelMessage());
+			return false;
+		}
+
+		oldMember.sendMessage("§7["+Config.get().getPrefix()+"§7] §dZostales wyrzucony z druzyny §7"+leader.getName());
+		oldMember.setParty(null);
+		party.getMembers().remove(oldMember);
+		if(party.getMembers().size() < 2) {
+			return removeParty(party);
+		}
+		
+		party.broadcastMessage("§7§o"+oldMember.getName()+" §dzostal wyrzucony z druzyny");
 		return true;
 	}
 	

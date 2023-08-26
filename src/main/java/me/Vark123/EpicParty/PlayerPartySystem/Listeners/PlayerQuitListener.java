@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import me.Vark123.EpicParty.PlayerPartySystem.PartyManager;
 import me.Vark123.EpicParty.PlayerPartySystem.PlayerManager;
 
 public class PlayerQuitListener implements Listener {
@@ -20,7 +21,11 @@ public class PlayerQuitListener implements Listener {
 	}
 	
 	private void playerCleaner(Player p) {
-		PlayerManager.get().unregisterPlayer(p);
+		PlayerManager.get().unregisterPlayer(p).ifPresent(pp -> {
+			pp.getParty().ifPresent(party -> {
+				PartyManager.get().leaveParty(party, pp);
+			});
+		});
 	}
 	
 }
