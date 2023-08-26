@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Random;
+import java.util.logging.Level;
 
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyJoinEvent;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyLeaderChangeEvent;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyLeaveEvent;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyRemoveEvent;
+import net.md_5.bungee.api.ChatColor;
 
 @Getter
 public final class PartyManager {
@@ -59,7 +61,8 @@ public final class PartyManager {
 		parties.add(party);
 		leader.setParty(party);
 		member.setParty(party);
-		
+
+		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] "+leader.getName()+" has created party with "+member.getName());
 		return party;
 	}
 	
@@ -87,6 +90,8 @@ public final class PartyManager {
 		
 		party.getMembers().add(newMember);
 		newMember.setParty(party);
+		
+		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] "+newMember.getName()+" has joined to party "+party.getLeader().getName());
 		return true;
 	}
 	
@@ -103,6 +108,7 @@ public final class PartyManager {
 		oldMember.sendMessage("§7["+Config.get().getPrefix()+"§7] §dOpusciles druzyne §7"+party.getLeader().getName());
 		oldMember.setParty(null);
 		party.getMembers().remove(oldMember);
+		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] "+oldMember.getName()+" has left party "+party.getLeader().getName());
 		if(party.getMembers().size() < 2) {
 			return removeParty(party);
 		}
@@ -131,6 +137,7 @@ public final class PartyManager {
 		oldMember.sendMessage("§7["+Config.get().getPrefix()+"§7] §dZostales wyrzucony z druzyny §7"+leader.getName());
 		oldMember.setParty(null);
 		party.getMembers().remove(oldMember);
+		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] "+oldMember.getName()+" has been kicked from party "+leader.getName());
 		if(party.getMembers().size() < 2) {
 			return removeParty(party);
 		}
@@ -146,6 +153,7 @@ public final class PartyManager {
 			pp.sendMessage("§7["+Config.get().getPrefix()+"§7] §dDruzyna §7"+party.getLeader().getName()+" §dzostala rozwiazana");
 			pp.setParty(null);
 		});
+		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] "+party.getLeader().getName()+" has been removed");
 		party.getMembers().clear();
 		party.setLeader(null);
 		parties.remove(party);
@@ -166,6 +174,7 @@ public final class PartyManager {
 
 		party.broadcastMessage("§7§o"+oldLeader.getName()+" §bmianowal §7§o"+newLeader.getName()+" §bnowym liderem druzyny");
 		party.setLeader(newLeader);
+		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] "+oldLeader.getName()+" has changed party leader to "+newLeader.getName());
 		return true;
 	}
 	

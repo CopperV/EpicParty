@@ -3,6 +3,7 @@ package me.Vark123.EpicParty.PlayerPartySystem;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
 
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.bukkit.Bukkit;
@@ -17,6 +18,7 @@ import me.Vark123.EpicParty.Config;
 import me.Vark123.EpicParty.Main;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyInviteEvent;
 import me.Vark123.EpicParty.Tools.Pair;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
@@ -87,6 +89,8 @@ public class PartyPlayer {
 		comp.addExtra(click);
 		sendJSONMessage(comp);
 		sender.sendMessage("§7["+Config.get().getPrefix()+"§7] §dZaprosiles §7§o"+player.getName()+" §ddo swojej druzyny!");
+		
+		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] "+sender.getName()+" send party invitation to "+getName());
 	}
 	
 }
