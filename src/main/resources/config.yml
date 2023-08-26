@@ -4,3 +4,4 @@ party:
   leader-signature: "&6&l♔"
   member-signature: "&7&l♘"
   chat-prefix: '$'
+  invitation-duration: 60

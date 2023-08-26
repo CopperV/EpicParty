@@ -29,9 +29,16 @@ public class BasePartyCommand implements CommandExecutor {
 					String[] newArgs = new String[args.length - 1];
 					for(int i = 0; i < newArgs.length; ++i)
 						newArgs[i] = args[i+1];
-					returnValue.setValue(subcmd.useCommand(sender, newArgs));
-				} else
-					returnValue.setValue(subcmd.useCommand(sender));
+					boolean res = subcmd.useCommand(sender, newArgs);
+					if(!res)
+						subcmd.showCorrectUsage(sender);
+					returnValue.setValue(res);
+				} else {
+					boolean res = subcmd.useCommand(sender);
+					if(!res)
+						subcmd.showCorrectUsage(sender);
+					returnValue.setValue(res);
+				}
 			}, () -> {
 				showCorrectUsage(sender);
 				returnValue.setFalse();

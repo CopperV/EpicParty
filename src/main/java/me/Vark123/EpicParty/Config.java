@@ -15,6 +15,10 @@ public final class Config {
 	private String leaderSignature;
 	private String memberSignature;
 	
+	private char partyChatPrefix;
+	
+	private int invitationDuration;
+	
 	private Config() {
 		
 	}
@@ -29,6 +33,8 @@ public final class Config {
 		this.prefix = ChatColor.translateAlternateColorCodes('&', fYml.getString("prefix"));
 		this.leaderSignature = ChatColor.translateAlternateColorCodes('&', fYml.getString("party.leader-signature"));
 		this.memberSignature = ChatColor.translateAlternateColorCodes('&', fYml.getString("party.member-signature"));
+		this.partyChatPrefix = fYml.getString("party.chat-prefix", "$").charAt(0);
+		this.invitationDuration = fYml.getInt("party.invitation-duration");
 	}
 	
 }
