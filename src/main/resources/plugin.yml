@@ -1,5 +1,5 @@
 name: EpicParty
-version: 1.0.0-BETA
+version: 1.0.0
 main: me.Vark123.EpicParty.Main
 author: Vark123
 depend: [NBTAPI]

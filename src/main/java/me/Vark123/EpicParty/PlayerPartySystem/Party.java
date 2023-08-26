@@ -2,6 +2,7 @@ package me.Vark123.EpicParty.PlayerPartySystem;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.Vark123.EpicParty.Config;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyChatEvent;
+import net.md_5.bungee.api.ChatColor;
 
 @Getter
 @EqualsAndHashCode
@@ -53,12 +55,14 @@ public class Party {
 			member.sendMessage("§8[§dPartyChat§8] §r"+PartyManager.get().getPartyPlayerSignature(sender)
 					+" §b"+sender.getName()+"§7: §7§o"+event.getMsg());
 		});
+		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] [PartyChat - "+leader.getName()+"] "+sender.getName()+": "+msg);
 	}
 	
 	public void broadcastMessage(String msg) {
 		members.forEach(member -> {
 			member.sendMessage("§8[§d"+Config.get().getPrefix()+"§8] §b"+msg);
 		});
+		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] [PartyChat - "+leader.getName()+"] PartyBroadcast: "+msg);
 	}
 	
 }
