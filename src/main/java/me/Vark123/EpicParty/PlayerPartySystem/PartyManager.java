@@ -14,6 +14,7 @@ import me.Vark123.EpicParty.Config;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyCreateEvent;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyEvent;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyJoinEvent;
+import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyKickEvent;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyLeaderChangeEvent;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyLeaveEvent;
 import me.Vark123.EpicParty.PlayerPartySystem.Events.PartyRemoveEvent;
@@ -124,7 +125,7 @@ public final class PartyManager {
 	}
 	
 	public boolean kickFromParty(Party party, PartyPlayer oldMember) {
-		PartyEvent leaveEvent = new PartyLeaveEvent(party, oldMember);
+		PartyEvent leaveEvent = new PartyKickEvent(party, oldMember);
 		Bukkit.getPluginManager().callEvent(leaveEvent);
 		PartyPlayer leader = party.getLeader();
 		if(leaveEvent.isCancelled()) {
