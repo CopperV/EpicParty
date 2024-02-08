@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import me.Vark123.EpicParty.Config;
@@ -25,7 +24,7 @@ import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
 
 @Getter
-@EqualsAndHashCode
+//@EqualsAndHashCode
 public class PartyPlayer {
 
 	private Player player;

@@ -35,9 +35,6 @@ public final class PartyMenuEvents {
 	
 	private EventCreator<InventoryClickEvent> defaultMenuClickEventCreator() {
 		Consumer<InventoryClickEvent> event = e -> {
-			if(e.isCancelled())
-				return;
-			
 			ItemStack it = e.getCurrentItem();
 			if(it == null)
 				return;
@@ -67,9 +64,6 @@ public final class PartyMenuEvents {
 	
 	private EventCreator<InventoryClickEvent> invitationsMenuClickEventCreator() {
 		Consumer<InventoryClickEvent> event = e -> {
-			if(e.isCancelled())
-				return;
-			
 			ItemStack it = e.getCurrentItem();
 			if(it == null)
 				return;
@@ -93,9 +87,6 @@ public final class PartyMenuEvents {
 	
 	private EventCreator<InventoryClickEvent> partyInfoMenuClickEventCreator() {
 		Consumer<InventoryClickEvent> event = e -> {
-			if(e.isCancelled())
-				return;
-			
 			ItemStack it = e.getCurrentItem();
 			if(it == null)
 				return;
