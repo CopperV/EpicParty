@@ -27,6 +27,10 @@ public class PlayerPvPProtectionListener implements Listener {
 		
 		Player p1 = (Player) damager;
 		Player p2 = (Player) victim;
+		
+		if(p1.equals(p2))
+			return;
+		
 		PlayerManager.get().getPartyPlayer(p1).ifPresent(pp1 -> {
 			pp1.getParty().ifPresent(party -> {
 				PlayerManager.get().getPartyPlayer(p2).ifPresent(pp2 -> {
