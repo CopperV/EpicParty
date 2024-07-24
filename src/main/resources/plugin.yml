@@ -1,5 +1,5 @@
 name: EpicParty
-version: 1.0.1
+version: 1.0.2
 main: me.Vark123.EpicParty.Main
 author: Vark123
 depend: [NBTAPI,EpicRPG]
