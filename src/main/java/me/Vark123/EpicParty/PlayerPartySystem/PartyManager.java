@@ -105,6 +105,17 @@ public final class PartyManager {
 				oldMember.sendMessage("§dPowod: §r"+leaveEvent.getCancelMessage());
 			return false;
 		}
+		
+		party.broadcastMessage("§7§o"+oldMember.getName()+" §dopuscil druzyne");
+		if(oldMember.equals(party.getLeader())) {
+			Random rand = new Random();
+			PartyPlayer newLeader;
+			do {
+				newLeader = party.getMembers()
+						.get(rand.nextInt(party.getMembers().size()));
+			}while(newLeader.equals(party.getLeader()));
+			changePartyLeader(party, newLeader);
+		}
 
 		oldMember.sendMessage("§7["+Config.get().getPrefix()+"§7] §dOpusciles druzyne §7"+party.getLeader().getName());
 		oldMember.setParty(null);
@@ -112,14 +123,6 @@ public final class PartyManager {
 		Bukkit.getLogger().log(Level.INFO, "["+ChatColor.stripColor(Config.get().getPrefix())+"] "+oldMember.getName()+" has left party "+party.getLeader().getName());
 		if(party.getMembers().size() < 2) {
 			return removeParty(party);
-		}
-		
-		party.broadcastMessage("§7§o"+oldMember.getName()+" §dopuscil druzyne");
-		if(oldMember.equals(party.getLeader())) {
-			Random rand = new Random();
-			PartyPlayer newLeader = party.getMembers()
-					.get(rand.nextInt(party.getMembers().size()));
-			changePartyLeader(party, newLeader);
 		}
 		return true;
 	}
